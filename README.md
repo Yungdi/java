@@ -1,2 +1,2 @@
 # java
-제네릭 [./generic.md]
+[제네릭](./generic.md)
