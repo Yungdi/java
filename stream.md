@@ -25,3 +25,21 @@ Collectors 에서 제공하는 메서드의 기능은 크게 세 가지로 구�
 - accumulator: 결과 컨테이너에 요소 추가하기
 - finisher: 최종 변환값을 결과 컨테이너로 적용하기
 - combiner: 두 결과 컨네이너 결합 (병렬 리듀싱을 가능하게 해줌)
+# Collectors 에서 제공하는 기능 세가지
+1. 요약
+```
+counting
+maxBy, minBy
+summingInt, summingDouble, summingLong
+averagingInt, averagingDouble, averagingLong  
+joining
+reducing
+```
+2. 그룹화
+```java
+groupingBy(Function function);
+groupingBy(Function function, Collector collector);
+groupingBy(Student::age, filtering(student -> student.level > 2, toList());
+groupingBy(Student::age, mapping(Student::name, toList());
+groupingBy(Student::age, flatMapi(Student::family, toList());
+```
