@@ -2,6 +2,7 @@ package chapter6;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -37,7 +38,7 @@ public class MyToListCollector<T> implements Collector<T, List<T>, List<T>> {
 
     @Override
     public Set<Characteristics> characteristics() {
-        return Set.of(Characteristics.CONCURRENT);
+        return EnumSet.of(Characteristics.CONCURRENT);
     }
 
     public static void main(String[] args) {
