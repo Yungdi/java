@@ -1,16 +1,16 @@
 package ch12;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @DisplayName("java.util.TimeZone 을 대체할 수 있는 java.time.ZoneId"
     + "서머타임 DST(Daylight SavingTime) 같은 복잡한 사항이 자동으로 처리됨")
@@ -39,7 +39,7 @@ class ZoneIdTest {
 
     @ParameterizedTest
     @DisplayName("LocalDate 에 ZoneId 적용")
-    @CsvSource({"2020,1,1,Europe/Rome"})
+    @MethodSource(value = "dateProvider")
     void testApplyZoneIdToLocalDate(int year, int month, int day, String zoneId) {
         LocalDate date = LocalDate.of(year, month, day);
         ZoneId zone = ZoneId.of(zoneId);
@@ -48,5 +48,12 @@ class ZoneIdTest {
         Assertions.assertThat(zonedDateTime)
             .as("ZoneId: %s, LocalDate: %s", zone, date)
             .isNotNull();
+    }
+
+    private static Stream<Arguments> dateProvider() {
+        return Stream.of(
+            Arguments.of(1, 1, 2, "Europe/Rome"),
+            Arguments.of(1, 1, 2, "Europe/Rome")
+        );
     }
 }
