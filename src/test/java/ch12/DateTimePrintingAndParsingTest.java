@@ -6,8 +6,10 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestReporter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -15,6 +17,13 @@ import org.junit.jupiter.params.provider.CsvSource;
 @ExtendWith(SoftAssertionsExtension.class)
 @DisplayName("날짜와 시간 객체 출력과 파싱")
 class DateTimePrintingAndParsingTest {
+
+    TestReporter testReporter;
+
+    @BeforeEach
+    void init(TestReporter testReporter) {
+        this.testReporter = testReporter;
+    }
 
     @ParameterizedTest
     @DisplayName("DateTimeFormatter 의 BASIC_ISO_DATE 구현체로 출력하기")
@@ -25,6 +34,8 @@ class DateTimePrintingAndParsingTest {
         Assertions.assertThat(basicIsoFormat)
             .as("check values %s %s", basicIsoFormat, format)
             .isEqualTo(format);
+
+        testReporter.publishEntry(basicIsoFormat);
     }
 
     @ParameterizedTest
@@ -36,6 +47,8 @@ class DateTimePrintingAndParsingTest {
         Assertions.assertThat(isoLocalFormat)
             .as("check values %s %s", isoLocalFormat, format)
             .isEqualTo(format);
+
+        testReporter.publishEntry(isoLocalFormat);
     }
 
     @ParameterizedTest
@@ -71,5 +84,7 @@ class DateTimePrintingAndParsingTest {
         softly.assertThat(parsedDate)
             .as("check values %s %s", parsedDate, date)
             .isEqualTo(date);
+
+        testReporter.publishEntry(localizedFormat);
     }
 }
