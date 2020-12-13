@@ -14,7 +14,13 @@ repositories {
 dependencies {
     testCompile('org.junit.jupiter:junit-jupiter:5.5.2')
     testCompile('org.assertj:assertj-core:3.14.0')
-    compile group: 'org.checkerframework', name: 'checker', version: '3.7.0'
+    testCompile("org.assertj:assertj-db:2.0.2")
+
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.1'
+    implementation 'org.checkerframework:checker:3.7.0'
+    implementation 'org.springframework:spring-core:5.3.2'
+    implementation 'org.springframework:spring-jdbc:5.3.2'
+
     jmh 'org.openjdk.jmh:jmh-core:1.26'
     jmh 'org.openjdk.jmh:jmh-generator-annprocess:1.26'
 }

@@ -1,6 +1,7 @@
 package assertion;
 
 import org.assertj.core.api.Assertions;
+import org.checkerframework.org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 
 class RecursiveComparisonTest {
