@@ -2,7 +2,7 @@ package ch15;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,10 +26,15 @@ class SyncAsyncEx {
             }
             return sum;
         };
-
-        Long sum = task.call();
-        System.out.println("리턴 시간: " + LocalTime.now());
-        System.out.println("연산 결과값:" + sum + ", 연산 완료 시간: " + LocalTime.now());
+        Long sum;
+        LocalTime returnResultTime;
+        try {
+            sum = task.call();
+        } finally {
+            returnResultTime = LocalTime.now();
+        }
+        System.out.println("리턴/결과 시간: " + returnResultTime);
+        System.out.println("연산 결과값:" + sum);
     }
 
     @Disabled
@@ -47,8 +52,24 @@ class SyncAsyncEx {
         };
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Long> future = executorService.submit(task);
-        System.out.println("리턴 시간: " + LocalTime.now());
-        System.out.println("연산 결과값:" + future.get() + ", 연산 완료 시간: " + LocalTime.now());
+        Future<Long> future;
+        LocalTime returnTime;
+        LocalTime resultTime;
+        Long sum;
+        try {
+            future = executorService.submit(task);
+        } finally {
+            returnTime = LocalTime.now();
+        }
+        try {
+            sum = future.get();
+        } finally {
+            resultTime = LocalTime.now();
+        }
+        Duration duration = Duration.between(returnTime, resultTime);
+        System.out.println("리턴 시간: " + returnTime);
+        System.out.println("완료 시간: " + resultTime);
+        System.out.println("시간 차이: " + duration);
+        System.out.println("연산 결과값:" + sum);
     }
 }

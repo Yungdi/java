@@ -1,6 +1,7 @@
 package db;
 
 import org.assertj.db.api.Assertions;
+import org.assertj.db.type.Column;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Table.Order;
 import org.junit.jupiter.api.Test;
